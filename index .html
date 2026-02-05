@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Manx Loss Support (MLS) — Confidential listening for grief & loss</title>
+  <meta name="description" content="Free, confidential listening support for anyone on the Isle of Man grieving a person, pet or any loss. Call, email or use our form." />
+  <meta name="theme-color" content="#f1f5f9" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #005eb8;
+      --accent-light: #41b6e6;
+      --good: #10b981;
+      --warn: #d97706;
+      --line: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --max: 1000px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+      font-size: 18px;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 20px; }
+    .nav {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .brand { font-size: 22px; font-weight: 600; }
+    .brand span { font-size: 16px; color: var(--muted); display: block; }
+    .navlinks { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .navlinks a { font-size: 17px; padding: 8px 12px; }
+    .btn {
+      background: var(--accent);
+      color: white;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+      display: inline-block;
+    }
+    .btn:hover { background: #004a92; }
+    .btn.outline {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn.linkish {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      padding: 10px 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.linkish:hover { text-decoration: underline; background: transparent; }
+    .hero { padding: 60px 0 40px; text-align: center; }
+    h1 { font-size: 48px; margin: 0 0 20px; line-height: 1.1; }
+    @media (max-width: 768px) { h1 { font-size: 38px; } .hero { padding: 40px 0 30px; } }
+    .lead { font-size: 22px; color: var(--muted); max-width: 760px; margin: 0 auto 18px; }
+    .nudge {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto 22px;
+    }
+    .cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 22px 0 18px; }
+    .cta .btn { min-width: 220px; }
+    .quick { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 34px 0; }
+    .tile {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .tile h3 { font-size: 22px; margin: 0 0 12px; }
+    .pill {
+      background: var(--accent-light);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 999px;
+      font-size: 20px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 12px 0;
+      border: none;
+      cursor: pointer;
+    }
+    .pill:hover { filter: brightness(0.97); }
+    section { padding: 50px 0; }
+    .sectionTitle { font-size: 18px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .box h3 { font-size: 24px; margin: 0 0 16px; }
+    .warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 26px 0;
+      font-size: 18px;
+      text-align: left;
+    }
+    .miniNote {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    footer {
+      background: white;
+      border-top: 1px solid var(--line);
+      padding: 40px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* Modal */
+    .modalBack {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+    .modal {
+      background: white;
+      border-radius: 16px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    .modalHeader {
+      padding: 20px;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modalHeader h2 { margin: 0; font-size: 24px; }
+    .x { background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
+    form { padding: 24px; }
+    label { display: block; margin: 16px 0 8px; font-size: 18px; font-weight: 500; }
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 18px;
+      font-family: inherit;
+    }
+    textarea { min-height: 140px; }
+    .formActions { margin-top: 24px; text-align: right; }
+    .formActions .miniNote { text-align: left; margin: 0 0 12px; }
+
+    @media (max-width: 600px) {
+      body { font-size: 17px; }
+      h1 { font-size: 36px; }
+      .btn { padding: 16px 20px; font-size: 17px; }
+      .cta .btn { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap">
+      <a href="#top" class="brand">Manx Loss Support <span>MLS — Confidential Listening on the Isle of Man</span></a>
+      <div class="navlinks">
+        <a href="#how">How it works</a>
+        <a href="#contact">Contact</a>
+        <a href="#donate">Donate</a>
+        <button class="btn linkish" id="privacyBtn" type="button">Privacy & confidentiality</button>
+        <button class="btn" id="openFormBtn" type="button">Request Support</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap" id="top">
+    <section class="hero">
+      <h1>When loss hurts, we're here to listen.</h1>
+      <p class="lead">Free, confidential support for grief — pet loss, bereavement, separation or any heavy change. No judgement, just a kind ear on the Isle of Man.</p>
+      <p class="nudge">
+        <strong>Recommended:</strong> Start by writing using the form or email — it helps us respond thoughtfully.
+        If you'd rather speak to someone straight away, our freephone line is always available.
+      </p>
+
+      <div class="cta">
+        <button class="btn" id="openFormBtn2" type="button">Write to us (recommended)</button>
+        <a href="mailto:hello@mls.im" class="btn outline">Email hello@mls.im</a>
+        <a href="tel:0800000000" class="btn outline">Call Freephone 0800 000 000</a>
+      </div>
+
+      <div class="warning">
+        <strong>In crisis?</strong> Call 999 (emergency) or Samaritans Isle of Man on <a href="tel:116123">116 123</a> right away.
+      </div>
+    </section>
+
+    <section class="quick">
+      <div class="tile">
+        <h3>Start by writing</h3>
+        <button class="pill" id="openFormBtn4" type="button">Open Support Form</button>
+        <p>Private, simple, and easiest for us to reply carefully.</p>
+        <p class="miniNote">No data is stored on this website.</p>
+      </div>
+
+      <div class="tile">
+        <h3>Email us</h3>
+        <a href="mailto:hello@mls.im" class="pill">✉️ hello@mls.im</a>
+        <p>Write as much or as little as you like. We'll reply kindly.</p>
+      </div>
+
+      <div class="tile">
+        <h3>Call us</h3>
+        <a href="tel:0800000000" class="pill">📞 0800 000 000</a>
+        <p>If you need to speak to someone straight away.</p>
+      </div>
+    </section>
+
+    <section id="how">
+      <p class="sectionTitle">How we help</p>
+      <div class="cols">
+        <div class="box">
+          <h3>1. Reach out</h3>
+          <p>Call, email or use the short form. Even “I’m struggling” is enough.</p>
+        </div>
+        <div class="box">
+          <h3>2. We listen</h3>
+          <p>Calm, caring conversation with trained volunteers. No pressure.</p>
+        </div>
+        <div class="box">
+          <h3>3. Gentle next steps</h3>
+          <p>If you'd like, we can suggest local Isle of Man support.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="sectionTitle">Get in touch today</p>
+      <div class="cols">
+        <div class="box">
+          <h3>Support Form (recommended)</h3>
+          <p>Opens your email — private & simple.</p>
+          <button class="btn" id="openFormBtn3" type="button" style="width:100%; margin-top:16px;">Open Form</button>
+          <p class="miniNote">This form opens your email app. Nothing is stored on this website.</p>
+        </div>
+
+        <div class="box">
+          <h3>Direct contact</h3>
+          <p>
+            Email: <a href="mailto:hello@mls.im">hello@mls.im</a><br>
+            Phone: <a href="tel:0800000000">0800 000 000</a>
+          </p>
+          <div class="warning" style="margin-top:20px;">
+            Urgent help: Samaritans <a href="tel:116123">116 123</a> or Crisis Team <a href="tel:01624642860">01624 642860</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="donate">
+      <p class="sectionTitle">Support MLS</p>
+      <div class="box" style="text-align:center;">
+        <h2 style="font-size:32px; margin-bottom:16px;">Help us help others</h2>
+        <p style="font-size:20px; color:var(--muted);">Donations keep our service free for everyone on the Island.</p>
+        <div class="cta" style="margin-top:24px;">
+          <a href="#" class="btn">Donate Online (link coming)</a>
+          <a href="mailto:hello@mls.im?subject=Donation%20Enquiry" class="btn outline">Enquire about donating</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Form Modal -->
+    <div class="modalBack" id="modalBack" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+        <div class="modalHeader">
+          <h2 id="supportTitle">Request Support</h2>
+          <button class="x" id="closeModalBtn" type="button" aria-label="Close">×</button>
+        </div>
+        <form id="supportForm">
+          <label for="name">Your name (optional)</label>
+          <input id="name" placeholder="e.g. Margaret" autocomplete="name" />
+
+          <label for="email">Your email</label>
+          <input id="email" type="email" placeholder="your@email.com" required autocomplete="email" />
+
+          <label for="topic">What kind of loss?</label>
+          <select id="topic">
+            <option>Pet loss</option>
+            <option>Bereavement</option>
+            <option>Relationship / separation</option>
+            <option>Other</option>
+          </select>
+
+          <label for="pref">Preferred way to reply</label>
+          <select id="pref">
+            <option>Email</option>
+            <option>Phone call</option>
+            <option>Either</option>
+          </select>
+
+          <label for="message">Tell us a little (or a lot)</label>
+          <textarea id="message" placeholder="I'm finding it hard after losing my dog..."></textarea>
+
+          <div class="formActions">
+            <p class="miniNote">This opens your email app — nothing is stored on this website. <button class="btn linkish" id="privacyBtn2" type="button">Read privacy & confidentiality</button></p>
+            <button class="btn" type="submit">Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modalBack" id="privacyModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+        <div class="modalHeader">
+          <h2 id="privacyTitle">Privacy & confidentiality</h2>
+          <button class="x" id="closePrivacyBtn" type="button" aria-label="Close">×</button>
+        </div>
+        <div style="padding:24px; font-size:18px;">
+          <p><strong>Your privacy matters.</strong></p>
+
+          <p><strong>Website:</strong> This website does not store personal information. We do not use cookies, tracking, or analytics.</p>
+
+          <p><strong>Support form:</strong> The support form simply opens your own email app (e.g. Mail, Gmail, Outlook). Nothing you type is stored on this website.</p>
+
+          <p><strong>Email & phone:</strong> Emails and calls are treated as confidential and handled only by MLS volunteers for the purpose of offering support. We do not sell data or use your details for marketing.</p>
+
+          <p><strong>Safety:</strong> If you are in immediate danger or need urgent medical help, call 999. You can also contact Samaritans on <a href="tel:116123">116 123</a>.</p>
+
+          <p class="miniNote" style="margin-top:16px;">
+            Note: Email providers may retain messages in your “Sent” folder and on mail servers as part of normal email delivery.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        Manx Loss Support (MLS) — Confidential listening for grief on the Isle of Man.<br>
+        Not emergency care: Call 999 or Samaritans 116 123 if in immediate danger.
+      </p>
+      <p>
+        <a href="mailto:hello@mls.im">hello@mls.im</a> • <a href="tel:0800000000">0800 000 000</a><br>
+        <button class="btn linkish" id="privacyBtn3" type="button">Privacy & confidentiality</button><br>
+        © <span id="year"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    // Support modal
+    const supportModal = $('modalBack');
+    const openSupportIds = ['openFormBtn','openFormBtn2','openFormBtn3','openFormBtn4'];
+
+    function openSupportModal() {
+      supportModal.style.display = 'flex';
+      supportModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      $('name').focus();
+    }
+    function closeSupportModal() {
+      supportModal.style.display = 'none';
+      supportModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openSupportIds.forEach(id => {
+      const el = $(id);
+      if (el) el.onclick = openSupportModal;
+    });
+    $('closeModalBtn').onclick = closeSupportModal;
+    supportModal.onclick = e => { if (e.target === supportModal) closeSupportModal(); };
+
+    // Privacy modal
+    const privacyModal = $('privacyModal');
+    const openPrivacyIds = ['privacyBtn','privacyBtn2','privacyBtn3'];
+
+    function openPrivacyModal() {
+      privacyModal.style.display = 'flex';
+      privacyModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePrivacyModal() {
+      privacyModal.style.display = 'none';
+      privacyModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    openPrivacyIds.forEach(id => {
+      const el = $(id);
+      if (el) el.onclick = (e) => { e.preventDefault?.(); openPrivacyModal(); };
+    });
+    $('closePrivacyBtn').onclick = closePrivacyModal;
+    privacyModal.onclick = e => { if (e.target === privacyModal) closePrivacyModal(); };
+
+    // Escape key closes whichever is open
+    document.onkeydown = e => {
+      if (e.key === 'Escape') {
+        if (privacyModal.style.display === 'flex') closePrivacyModal();
+        if (supportModal.style.display === 'flex') closeSupportModal();
+      }
+    };
+
+    // Footer year
+    $('year').textContent = new Date().getFullYear();
+
+    // Mailto submission (no data stored on site)
+    $('supportForm').onsubmit = e => {
+      e.preventDefault();
+
+      const data = {
+        name: $('name').value.trim(),
+        email: $('email').value.trim(),
+        topic: $('topic').value,
+        pref: $('pref').value,
+        msg: $('message').value.trim()
+      };
+
+      const subject = `MLS Support Request - ${data.topic}`;
+      const body =
+`Hello,
+
+Topic: ${data.topic}
+Preferred: ${data.pref}
+${data.name ? `Name: ${data.name}\n` : ''}${data.email ? `Email: ${data.email}\n` : ''}
+
+Message:
+${data.msg || '(no details added)'}
+
+Thank you.`;
+
+      window.location = `mailto:hello@mls.im?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      closeSupportModal();
+    };
+  </script>
+</body>
+</html>
