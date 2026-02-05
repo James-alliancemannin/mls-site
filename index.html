@@ -33,17 +33,54 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 20px; }
+
     .nav {
       background: white;
       border-bottom: 1px solid var(--line);
       position: sticky; top: 0; z-index: 10;
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    .nav .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .brand { font-size: 22px; font-weight: 600; }
-    .brand span { font-size: 16px; color: var(--muted); display: block; }
-    .navlinks { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Brand + logo */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .brand:hover { text-decoration: none; }
+    .brandLogo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 10px;
+      flex: 0 0 auto;
+    }
+    .brandText { line-height: 1.1; }
+    .brandText span {
+      font-size: 16px;
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
     .navlinks a { font-size: 17px; padding: 8px 12px; }
+
     .btn {
       background: var(--accent);
       color: white;
@@ -72,18 +109,15 @@
       cursor: pointer;
     }
     .btn.linkish:hover { text-decoration: underline; background: transparent; }
+
     .hero { padding: 60px 0 40px; text-align: center; }
     h1 { font-size: 48px; margin: 0 0 20px; line-height: 1.1; }
-    @media (max-width: 768px) { h1 { font-size: 38px; } .hero { padding: 40px 0 30px; } }
     .lead { font-size: 22px; color: var(--muted); max-width: 760px; margin: 0 auto 18px; }
-    .nudge {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 760px;
-      margin: 0 auto 22px;
-    }
+    .nudge { font-size: 18px; color: var(--muted); max-width: 760px; margin: 0 auto 22px; }
+
     .cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 22px 0 18px; }
     .cta .btn { min-width: 220px; }
+
     .quick { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 34px 0; }
     .tile {
       background: white;
@@ -94,6 +128,7 @@
       box-shadow: var(--shadow);
     }
     .tile h3 { font-size: 22px; margin: 0 0 12px; }
+
     .pill {
       background: var(--accent-light);
       color: white;
@@ -107,8 +142,10 @@
       cursor: pointer;
     }
     .pill:hover { filter: brightness(0.97); }
+
     section { padding: 50px 0; }
     .sectionTitle { font-size: 18px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; text-align: center; }
+
     .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
     .box {
       background: white;
@@ -118,6 +155,7 @@
       box-shadow: var(--shadow);
     }
     .box h3 { font-size: 24px; margin: 0 0 16px; }
+
     .warning {
       background: #fffbeb;
       border: 1px solid #fde68a;
@@ -127,11 +165,9 @@
       font-size: 18px;
       text-align: left;
     }
-    .miniNote {
-      font-size: 16px;
-      color: var(--muted);
-      margin-top: 10px;
-    }
+
+    .miniNote { font-size: 16px; color: var(--muted); margin-top: 10px; }
+
     footer {
       background: white;
       border-top: 1px solid var(--line);
@@ -183,18 +219,30 @@
     .formActions { margin-top: 24px; text-align: right; }
     .formActions .miniNote { text-align: left; margin: 0 0 12px; }
 
+    @media (max-width: 768px) {
+      h1 { font-size: 38px; }
+      .hero { padding: 40px 0 30px; }
+    }
     @media (max-width: 600px) {
       body { font-size: 17px; }
       h1 { font-size: 36px; }
       .btn { padding: 16px 20px; font-size: 17px; }
       .cta .btn { min-width: 0; width: 100%; }
+      .brandLogo { width: 38px; height: 38px; }
     }
   </style>
 </head>
 <body>
   <nav class="nav">
     <div class="wrap">
-      <a href="#top" class="brand">Manx Loss Support <span>MLS — Confidential Listening on the Isle of Man</span></a>
+      <a href="#top" class="brand" aria-label="Manx Loss Support home">
+        <img class="brandLogo" src="logo.png" alt="Manx Loss Support logo">
+        <div class="brandText">
+          Manx Loss Support
+          <span>MLS — Confidential Listening on the Isle of Man</span>
+        </div>
+      </a>
+
       <div class="navlinks">
         <a href="#how">How it works</a>
         <a href="#contact">Contact</a>
@@ -332,7 +380,10 @@
           <textarea id="message" placeholder="I'm finding it hard after losing my dog..."></textarea>
 
           <div class="formActions">
-            <p class="miniNote">This opens your email app — nothing is stored on this website. <button class="btn linkish" id="privacyBtn2" type="button">Read privacy & confidentiality</button></p>
+            <p class="miniNote">
+              This opens your email app — nothing is stored on this website.
+              <button class="btn linkish" id="privacyBtn2" type="button">Read privacy & confidentiality</button>
+            </p>
             <button class="btn" type="submit">Send Message</button>
           </div>
         </form>
