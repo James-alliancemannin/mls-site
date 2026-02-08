@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manx Loss Support (MLS) — Confidential listening for grief &amp; loss</title>
+  <title>Manx Loss Support (MLS) — Confidential listening for grief and Loss &amp; loss</title>
   <meta name="description" content="Free, confidential listening support for anyone on the Isle of Man grieving a person, pet or any loss. Call, email or use our form.">
   <meta name="theme-color" content="#f1f5f9">
   <meta name="author" content="Manx Loss Support">
 
   <!--
-      Updates in this latest version:
-    - Logo now in header brand area (logo.png), 
-    - Donate button disabled 
-    - Inline, gentle validation messages (boomer friendly) 
-    - Modal robustness escape/backdrop close, focus trap, return focus, defensive JS
-    - Mailto fallback for users to copy/paste box + copy button + calm status message
+    Updates in this version:
+    - Added Local Support directory (triaged, accordion-style) + nav link
+    - Added “Find local support services” CTA (kept homepage calm)
+    - Donate button disabled (email enquiry only)
+    - Logo in header (logo.png)
+    - Inline, gentle validation messages
+    - Modal robustness + fallback copy/paste + copy button
   -->
 
   <style>
@@ -355,6 +356,74 @@
       box-shadow:0 0 0 3px rgba(185,28,28,0.10);
     }
 
+    /* ── Local Support Directory ───────────── */
+    .directory-intro{
+      max-width:52rem;
+      margin:0 auto 1.4rem;
+      text-align:center;
+      color:var(--text-sub);
+      font-size:1.05rem;
+      line-height:1.65;
+    }
+    .dir-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.2rem;
+    }
+    details.dir{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-sm);
+      padding:0;
+      overflow:hidden;
+    }
+    details.dir > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:1.05rem 1.2rem;
+      font-weight:650;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+    }
+    details.dir > summary::-webkit-details-marker{display:none;}
+    .dir-badge{
+      font-size:.88rem;
+      font-weight:600;
+      color:var(--text-sub);
+      border:1px solid var(--border);
+      background:#f8fafc;
+      padding:.22rem .55rem;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .dir-body{
+      padding:0 1.2rem 1.2rem;
+      color:var(--text-sub);
+      border-top:1px solid var(--border);
+    }
+    .dir-item{
+      padding:.9rem 0;
+      border-bottom:1px dashed var(--border);
+    }
+    .dir-item:last-child{border-bottom:0;}
+    .dir-item strong{color:var(--text);}
+    .dir-item a{word-break:break-word;}
+    .dir-mini{
+      margin:.35rem 0 0;
+      font-size:.96rem;
+      line-height:1.55;
+    }
+    .dir-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+      margin-top:1.1rem;
+      justify-content:center;
+    }
+
     /* ── Modals ───────────────────────────────────────── */
     .modal-backdrop{
       position:fixed;
@@ -486,6 +555,7 @@
       <nav class="nav-links" aria-label="Primary">
         <a href="#how">How it works</a>
         <a href="#contact">Contact</a>
+        <a href="#local-support">Local support</a>
         <a href="#donate">Donate</a>
         <button type="button" class="linkish" data-modal-open="privacy">Privacy &amp; confidentiality</button>
         <button type="button" class="btn" data-modal-open="support">Request Support</button>
@@ -556,7 +626,7 @@
         </div>
         <div class="card">
           <h3>3. Gentle next steps</h3>
-          <p>If you’d like, we can suggest local Isle of Man support.</p>
+          <p>If you’d like, we can suggest local Isle of Man support — bereavement, mental health, practical help and more.</p>
         </div>
       </div>
     </section>
@@ -570,6 +640,10 @@
           <p>Composes an email — private &amp; simple.</p>
           <button type="button" class="btn" data-modal-open="support" style="margin-top:1.2rem;width:100%;">Open Form</button>
           <p class="field-hint">This form opens your email app. Nothing is stored on this website.</p>
+
+          <div class="dir-actions" style="margin-top:1.2rem;">
+            <a class="btn btn-outline" href="#local-support">Find local support services</a>
+          </div>
         </div>
 
         <div class="card">
@@ -589,6 +663,313 @@
           </p>
         </div>
       </div>
+    </section>
+
+    <!-- LOCAL SUPPORT DIRECTORY -->
+    <section id="local-support" aria-labelledby="local-support-title">
+      <h2 id="local-support-title" class="section-label">Local support on the Isle of Man</h2>
+
+      <p class="directory-intro">
+        If you need more specialised help, these services may be useful. If you’re not sure where to start,
+        contact MLS — we’ll listen first and help you find the right next step.
+        <br><br>
+        <strong>If you are in immediate danger:</strong> call <a href="tel:999">999</a>.
+      </p>
+
+      <div class="dir-grid" role="list">
+        <details class="dir" role="listitem">
+          <summary>
+            Urgent help (crisis)
+            <span class="dir-badge">Start here</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Samaritans — Isle of Man</strong>
+              <div class="dir-mini">24-hour confidential telephone service for anyone in crisis, including bereavement.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:116123">116 123</a> (free)<br>
+                Email: <a href="mailto:jo@samaritans.org">jo@samaritans.org</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Crisis Response &amp; Home Treatment Team (CRHTT)</strong>
+              <div class="dir-mini">Island-wide crisis response for urgent mental health deterioration / distress.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624642860">01624 642860</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Childline</strong>
+              <div class="dir-mini">Support for children and young people.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:08001111">0800 1111</a> / <a href="tel:116111">116 111</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Bereavement &amp; grief
+            <span class="dir-badge">Loss support</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Bereaved Survivors of Suicide Isle of Man</strong>
+              <div class="dir-mini">Support for people affected by suicide loss.</div>
+              <div class="dir-mini">
+                Email: <a href="mailto:dhiggy@manx.net">dhiggy@manx.net</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Hospice Isle of Man</strong>
+              <div class="dir-mini">Clinical care and broader emotional, social and spiritual support services.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624647400">01624 647400</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Mental health &amp; counselling
+            <span class="dir-badge">Talking support</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Community Wellbeing Service (Counselling)</strong>
+              <div class="dir-mini">Counselling for mild to moderate depression (17+). Self-referral via screening.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624642540">01624 642540</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Minds Matter</strong>
+              <div class="dir-mini">Psychological support for people with long-term conditions and families.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624679118">01624 679118</a><br>
+                Email: <a href="mailto:info@mindsmatter.org.im">info@mindsmatter.org.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Qwell</strong>
+              <div class="dir-mini">Online emotional wellbeing and mental health support for adults.</div>
+              <div class="dir-mini">
+                Website: <a href="https://www.qwell.io" target="_blank" rel="noopener">qwell.io</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Kooth</strong>
+              <div class="dir-mini">Online support and counselling for young people.</div>
+              <div class="dir-mini">
+                Website: <a href="https://www.kooth.com" target="_blank" rel="noopener">kooth.com</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Children &amp; young people
+            <span class="dir-badge">Under 25</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Isle Listen</strong>
+              <div class="dir-mini">Support for children and young people up to 25 (schools + 1:1 therapeutic support).</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624679118">01624 679118</a><br>
+                Email: <a href="mailto:info@islelisten.im">info@islelisten.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>CAMHS</strong>
+              <div class="dir-mini">Assessment and treatment for children and young people (referral required via professional).</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624642875">01624 642875</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>The Children’s Centre</strong>
+              <div class="dir-mini">Community initiatives for children, young people and families.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624800000">01624 800000</a><br>
+                Email: <a href="mailto:info@thechildrenscentre.org.im">info@thechildrenscentre.org.im</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Practical support (money, housing, advice)
+            <span class="dir-badge">Life admin</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Citizens Advice (Isle of Man)</strong>
+              <div class="dir-mini">Free impartial advice: housing, benefits, relationship breakdown, consumer, employment, food bank referrals.</div>
+              <div class="dir-mini">
+                Website: <a href="https://www.citizensadvice.im" target="_blank" rel="noopener">citizensadvice.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Housing Matters Isle of Man</strong>
+              <div class="dir-mini">Support for families and individuals in housing crisis.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624675507">01624 675507</a><br>
+                Email: <a href="mailto:info@housingmatters.im">info@housingmatters.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Debt Counselling (Office of Fair Trading)</strong>
+              <div class="dir-mini">Confidential debt counselling.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624686510">01624 686510</a><br>
+                Email: <a href="mailto:debt@gov.im">debt@gov.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Isle of Man Foodbank</strong>
+              <div class="dir-mini">Food support and referrals.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624646999">01624 646999</a> / <a href="tel:076243116550">07624 3116550</a> / <a href="tel:08081624610">0808 1624 610</a><br>
+                Email: <a href="mailto:isleofmanfoodbank@gmail.com">isleofmanfoodbank@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Relationships, safeguarding &amp; safety
+            <span class="dir-badge">Protection</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Women’s Refuge Isle of Man</strong>
+              <div class="dir-mini">Support for women threatened by violence at home.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624677900">01624 677900</a><br>
+                Email: <a href="mailto:womensrefuge3.iom@gmail.com">womensrefuge3.iom@gmail.com</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Victim Support</strong>
+              <div class="dir-mini">Free and confidential support for people affected by crime.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624679950">01624 679950</a><br>
+                Email: <a href="mailto:enquiries@victimsupport.im">enquiries@victimsupport.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Relate</strong>
+              <div class="dir-mini">Relationship counselling and support services.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624623902">01624 623902</a><br>
+                Email: <a href="mailto:relate@mcb.net">relate@mcb.net</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>NSPCC</strong>
+              <div class="dir-mini">Help for families and child protection support.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:08088005000">0808 800 5000</a><br>
+                Email: <a href="mailto:help@NSPCC.org.uk">help@NSPCC.org.uk</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Addiction (alcohol, drugs, gambling)
+            <span class="dir-badge">Treatment</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Motiv8 Addiction Services</strong>
+              <div class="dir-mini">Counselling for addictive behaviours including alcohol, drugs or gambling.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:08081624627">0808 1624 627</a> / <a href="tel:01624627656">01624 627656</a><br>
+                Email: <a href="mailto:contact@motiv8.im">contact@motiv8.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Drug &amp; Alcohol Team (DAT)</strong>
+              <div class="dir-mini">Assessment, treatment and support for alcohol and/or drug dependency.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624617889">01624 617889</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="dir" role="listitem">
+          <summary>
+            Older people, disability &amp; caring
+            <span class="dir-badge">Support</span>
+          </summary>
+          <div class="dir-body">
+            <div class="dir-item">
+              <strong>Age Concern Isle of Man</strong>
+              <div class="dir-mini">Support and wellbeing for older people.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624631740">01624 631740</a><br>
+                Email: <a href="mailto:info@ageconcern.im">info@ageconcern.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>The Silver Line</strong>
+              <div class="dir-mini">24/7 helpline for older people.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:08004708090">0800 4 70 80 90</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Sight Matters</strong>
+              <div class="dir-mini">Support for blind and visually impaired members.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624674727">01624 674727</a><br>
+                Email: <a href="mailto:enquiries@sightmatters.im">enquiries@sightmatters.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Manx Deaf Society</strong>
+              <div class="dir-mini">Support for deaf, deafened and hard of hearing.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:07624202875">07624 202875</a><br>
+                Email: <a href="mailto:contact@manxdeafsociety.org.im">contact@manxdeafsociety.org.im</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Crossroads</strong>
+              <div class="dir-mini">Services supporting carers (all ages, conditions, care needs).</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624673103">01624 673103</a><br>
+                Email: <a href="mailto:info@crossroadsiom.org">info@crossroadsiom.org</a>
+              </div>
+            </div>
+            <div class="dir-item">
+              <strong>Live at Home</strong>
+              <div class="dir-mini">Helping people live independently at home.</div>
+              <div class="dir-mini">
+                Tel: <a href="tel:01624616571">01624 616571</a> / <a href="tel:01624627778">01624 627778</a><br>
+                Email: <a href="mailto:enquiries@liveathome.im">enquiries@liveathome.im</a>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <div class="dir-actions" style="margin-top:1.6rem;">
+        <a class="btn btn-outline" href="mailto:hello@mls.im?subject=Help%20finding%20local%20support">Ask MLS to help you find the right service</a>
+      </div>
+
+      <p class="field-hint" style="max-width:52rem;margin:1rem auto 0;text-align:center;">
+        Listings are provided for convenience. If you notice a correction needed (number, email, service name), please email MLS.
+      </p>
     </section>
 
     <section id="donate" aria-labelledby="donate-title">
@@ -725,6 +1106,7 @@
 
       <p style="margin-top:1.4rem;">
         <a href="mailto:hello@mls.im?subject=Support%20Enquiry">hello@mls.im</a>  •  <a href="tel:0800000000">0800 000 000</a><br>
+        <a href="#local-support">Local support directory</a><br>
         <button type="button" class="linkish" data-modal-open="privacy">Privacy &amp; confidentiality</button><br>
         © <span id="copyright-year"></span>
       </p>
@@ -1037,7 +1419,4 @@
   </script>
 </body>
 </html>
-```
-
-
 
