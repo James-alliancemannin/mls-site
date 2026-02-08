@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,16 +7,19 @@
   <title>Manx Loss Support (MLS) — Confidential listening for grief &amp; loss</title>
   <meta name="description" content="Free, confidential listening support for anyone on the Isle of Man grieving a person, pet or any loss. Call, email or use our form.">
   <meta name="theme-color" content="#f1f5f9">
-  <meta name="author" content="James and Defibs">
+  <meta name="author" content="Manx Loss Support">
 
   <!--
     Manx Loss Support — single-file landing page
-    Defibs and James —  2025 / refreshed Feb 2026
-    Patch notes:
-    - Fixed reduced-motion scroll handling (valid CSS)
-    - Fixed link-like button styling (.linkish)
-    - Made modals + robust: close button wired, focus trap, return focus, no-throw JS
-    - Added mailto fallback box for boomer devices without a mail client
+    2025 / refreshed Feb 2026
+
+    Updates in this version:
+    - Logo placed in header brand area (logo.png), sized for a calm, professional first impression
+    - Phone copy: aims for 24/7, but sets expectations (leave a message; priority call-back)
+    - Donate button disabled (no dead links); keep donation enquiries by email
+    - Inline, gentle validation messages (boomer-friendly) instead of relying only on browser bubbles
+    - Modal robustness: escape/backdrop close, focus trap, return focus, defensive JS
+    - Mailto fallback: copy/paste box + copy button + calm status message
   -->
 
   <style>
@@ -32,7 +36,14 @@
       --shadow-sm:0 2px 8px rgba(0,0,0,.06);
       --shadow-md:0 4px 16px rgba(0,0,0,.09);
       --max-width:960px;
+
+      --danger:#b91c1c;
+      --danger-bg:#fef2f2;
+      --danger-border:#fecaca;
+      --disabled:#94a3b8;
+      --disabled-bg:#f1f5f9;
     }
+
     *,*::before,*::after{box-sizing:border-box;}
     html{scroll-behavior:smooth;}
     body{
@@ -44,6 +55,7 @@
       background:var(--bg);
       min-height:100vh;
     }
+
     a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.18em;}
     a:hover,a:focus-visible{text-decoration-thickness:2px;}
     :focus-visible{outline:3px solid var(--accent-pale);outline-offset:2px;}
@@ -82,21 +94,44 @@
       gap:1.25rem 2rem;
       align-items:center;
       justify-content:space-between;
-      padding:1.1rem 0;
+      padding:1.0rem 0;
     }
+
+    /* Brand + logo */
     .brand{
-      font-size:1.38rem;
-      font-weight:600;
-      line-height:1.2;
+      display:flex;
+      align-items:center;
+      gap:.85rem;
       text-decoration:none;
       color:var(--text);
+      min-width: 14rem;
     }
-    .brand small{
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
       display:block;
+      object-fit:contain;
+      background:transparent;
+      flex:0 0 auto;
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      line-height:1.15;
+    }
+    .brand-title{
+      font-size:1.32rem;
+      font-weight:650;
+      letter-spacing:.01em;
+    }
+    .brand-sub{
       font-size:.82rem;
       font-weight:400;
       color:var(--text-sub);
+      margin-top:.12rem;
     }
+
     .nav-links{
       display:flex;
       flex-wrap:wrap;
@@ -160,9 +195,18 @@
     }
     .btn-outline:hover{background:var(--accent-pale);}
 
+    .btn[disabled],
+    .btn.is-disabled{
+      background:var(--disabled-bg);
+      color:var(--disabled);
+      border:2px solid var(--border);
+      cursor:not-allowed;
+      pointer-events:none;
+    }
+
     main{display:block;}
     .hero{
-      padding:5.5rem 0 3.5rem;
+      padding:5.2rem 0 3.3rem;
       text-align:center;
     }
     h1{
@@ -179,7 +223,13 @@
     .intro-nudge{
       font-size:1.08rem;
       color:var(--text-sub);
-      max-width:42rem;
+      max-width:44rem;
+      margin:0 auto 1.2rem;
+    }
+    .phone-nudge{
+      font-size:1.02rem;
+      color:var(--text-sub);
+      max-width:44rem;
       margin:0 auto 1.4rem;
     }
     .actions{
@@ -259,6 +309,12 @@
     }
     .card h3{margin:0 0 1rem;font-size:1.38rem;}
 
+    .donate-title{
+      font-size:1.9rem;
+      margin:0 0 .9rem;
+      line-height:1.15;
+    }
+
     .field-hint{
       margin:.5rem 0 0;
       color:var(--text-sub);
@@ -282,6 +338,26 @@
       font-size:.96rem;
       text-align:center;
       line-height:1.7;
+    }
+
+    /* ── Inline errors (calm, boomer-friendly) ───────────── */
+    .error{
+      margin:.55rem 0 0;
+      padding:.6rem .75rem;
+      border-radius:8px;
+      background:var(--danger-bg);
+      border:1px solid var(--danger-border);
+      color:var(--danger);
+      font-size:.98rem;
+      line-height:1.45;
+      display:none;
+    }
+    .has-error .error{display:block;}
+    .has-error input,
+    .has-error select,
+    .has-error textarea{
+      border-color:var(--danger-border);
+      box-shadow:0 0 0 3px rgba(185,28,28,0.10);
     }
 
     /* ── Modals ───────────────────────────────────────── */
@@ -329,6 +405,7 @@
       outline:3px solid rgba(255,255,255,.65);
       outline-offset:2px;
     }
+
     form{padding:1.6rem;}
     label{
       display:block;
@@ -359,6 +436,20 @@
       color:var(--text-sub);
     }
 
+    .fallback-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+      margin-top:.9rem;
+      align-items:center;
+    }
+    .status{
+      margin:0;
+      color:var(--text-sub);
+      font-size:.96rem;
+      line-height:1.4;
+    }
+
     .sr-only{
       position:absolute;
       width:1px;height:1px;
@@ -372,6 +463,9 @@
     @media (max-width:560px){
       .actions .btn{min-width:100%;}
       .btn,.pill{width:100%;}
+      .fallback-actions{width:100%;}
+      .logo{width:40px;height:40px;border-radius:10px;}
+      .brand-title{font-size:1.25rem;}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -386,9 +480,12 @@
 
   <header class="nav" role="banner">
     <div class="nav-inner container">
-      <a href="#top" class="brand">
-        Manx Loss Support
-        <small>Confidential Listening — Isle of Man</small>
+      <a href="#top" class="brand" aria-label="Manx Loss Support home">
+        <img class="logo" src="logo.png" alt="Manx Loss Support logo" width="44" height="44" loading="eager" decoding="async">
+        <span class="brand-text">
+          <span class="brand-title">Manx Loss Support</span>
+          <span class="brand-sub">Confidential Listening — Isle of Man</span>
+        </span>
       </a>
 
       <nav class="nav-links" aria-label="Primary">
@@ -413,13 +510,15 @@
       </p>
 
       <p class="intro-nudge">
-        <strong>Recommended:</strong> Start by writing using the form or email — it helps us respond thoughtfully.<br>
-        If you’d rather speak right away, our phone line is available.
+        <strong>Recommended:</strong> Start by writing using the form or email — it helps us respond thoughtfully.
+      </p>
+      <p class="phone-nudge">
+        <strong>Phone support:</strong> We aim to keep the line available 24/7. If it’s busy, please leave a short message and a safe callback number — we’ll return your call as a priority.
       </p>
 
       <div class="actions" role="group" aria-label="Quick actions">
         <button type="button" class="btn" data-modal-open="support">Write to us (recommended)</button>
-        <a href="mailto:hello@mls.im" class="btn btn-outline">Email hello@mls.im</a>
+        <a href="mailto:hello@mls.im?subject=Support%20Enquiry" class="btn btn-outline">Email hello@mls.im</a>
         <a href="tel:0800000000" class="btn btn-outline" aria-label="Call freephone 0800 000 000">Call Freephone 0800 000 000</a>
       </div>
 
@@ -438,14 +537,14 @@
 
       <div class="tile">
         <h3>Email us</h3>
-        <a href="mailto:hello@mls.im" class="pill">hello@mls.im</a>
+        <a href="mailto:hello@mls.im?subject=Support%20Enquiry" class="pill">hello@mls.im</a>
         <p>Write as much or as little as you like. We’ll reply kindly.</p>
       </div>
 
       <div class="tile">
         <h3>Call us</h3>
         <a href="tel:0800000000" class="pill" aria-label="Call freephone 0800 000 000">0800 000 000</a>
-        <p>If you need to speak to someone straight away.</p>
+        <p>If it’s busy, leave a message — we’ll call you back as a priority.</p>
       </div>
     </section>
 
@@ -473,7 +572,7 @@
       <div class="grid-2-3">
         <div class="card">
           <h3>Support Form (recommended)</h3>
-          <p>Opens your email — private &amp; simple.</p>
+          <p>Composes an email — private &amp; simple.</p>
           <button type="button" class="btn" data-modal-open="support" style="margin-top:1.2rem;width:100%;">Open Form</button>
           <p class="field-hint">This form opens your email app. Nothing is stored on this website.</p>
         </div>
@@ -481,13 +580,18 @@
         <div class="card">
           <h3>Direct contact</h3>
           <p style="margin-bottom:1rem;">
-            Email: <a href="mailto:hello@mls.im">hello@mls.im</a><br>
+            Email: <a href="mailto:hello@mls.im?subject=Support%20Enquiry">hello@mls.im</a><br>
             Phone: <a href="tel:0800000000">0800 000 000</a>
           </p>
+
           <div class="callout" aria-label="Urgent help information">
             Urgent help: Samaritans <a href="tel:116123">116 123</a><br>
-            Crisis Team <a href="tel:01624642860">01624 642860</a>
+            Crisis Response &amp; Home Treatment Team <a href="tel:01624642860">01624 642860</a>
           </div>
+
+          <p class="field-hint" style="margin-top:1rem;">
+            If you are in immediate danger, call <a href="tel:999">999</a>.
+          </p>
         </div>
       </div>
     </section>
@@ -496,14 +600,21 @@
       <h2 id="donate-title" class="section-label">Support MLS</h2>
 
       <div class="card" style="text-align:center;">
-        <h3 style="font-size:1.9rem;margin-bottom:.9rem;">Help us help others</h3>
-        <p style="font-size:1.18rem;color:var(--text-sub);">
+        <h3 class="donate-title">Help us help others</h3>
+        <p style="font-size:1.18rem;color:var(--text-sub);margin:0;">
           Donations keep our service free for everyone on the Island.
         </p>
+
         <div class="actions" style="margin-top:1.6rem;">
-          <a href="#" class="btn">Donate Online (link coming)</a>
+          <button type="button" class="btn is-disabled" disabled aria-disabled="true" title="Donation link coming soon">
+            Donate Online (coming soon)
+          </button>
           <a href="mailto:hello@mls.im?subject=Donation%20Enquiry" class="btn btn-outline">Enquire about donating</a>
         </div>
+
+        <p class="field-hint" style="max-width:44rem;margin:1rem auto 0;">
+          If you’d like to support MLS, email us and we’ll reply with the easiest way to donate.
+        </p>
       </div>
     </section>
 
@@ -514,8 +625,9 @@
           <h2 id="support-heading">Request Support</h2>
           <button type="button" class="modal-close" data-modal-close aria-label="Close dialog">×</button>
         </div>
+
         <div class="sr-only" id="support-desc">
-          Support request form. This opens your email application; no data is stored on this website.
+          Support request form. This composes an email on your device; no data is stored on this website.
         </div>
 
         <form id="support-form" novalidate>
@@ -523,22 +635,27 @@
           <input id="name" autocomplete="name" placeholder="e.g. Margaret">
 
           <label for="reply-pref">Preferred way to reply</label>
-          <select id="reply-pref">
+          <select id="reply-pref" aria-describedby="pref-hint">
             <option value="Email" selected>Email</option>
             <option value="Phone call">Phone call</option>
             <option value="Either">Either</option>
           </select>
+          <p class="field-hint" id="pref-hint">Choose what feels easiest. You can change your mind later.</p>
 
-          <div id="email-wrap">
+          <div id="email-field" class="field">
             <label for="email">Your email</label>
-            <input id="email" type="email" autocomplete="email" placeholder="your@email.com" inputmode="email">
-            <p class="field-hint">If you prefer a phone call, you can leave this blank and share a number instead.</p>
+            <input id="email" type="email" autocomplete="email" placeholder="your@email.com" inputmode="email" aria-describedby="email-hint email-error">
+            <p class="field-hint" id="email-hint">If you prefer a phone call, you can leave this blank and share a number instead.</p>
+            <p class="error" id="email-error" role="status" aria-live="polite"></p>
           </div>
 
           <div id="phone-wrap" style="display:none;">
-            <label for="phone">Your phone number</label>
-            <input id="phone" type="tel" autocomplete="tel" placeholder="e.g. 07624 123456" inputmode="tel">
-            <p class="field-hint">Only needed if you want us to call you.</p>
+            <div id="phone-field" class="field">
+              <label for="phone">Your phone number</label>
+              <input id="phone" type="tel" autocomplete="tel" placeholder="e.g. 07624 123456" inputmode="tel" aria-describedby="phone-hint phone-error">
+              <p class="field-hint" id="phone-hint">Only needed if you want us to call you.</p>
+              <p class="error" id="phone-error" role="status" aria-live="polite"></p>
+            </div>
           </div>
 
           <label for="topic">What kind of loss?</label>
@@ -549,24 +666,33 @@
             <option>Other</option>
           </select>
 
-          <label for="message">Tell us a little (or a lot)</label>
-          <textarea id="message" placeholder="I'm finding it hard after losing my dog..."></textarea>
+          <div id="message-field" class="field">
+            <label for="message">Tell us a little (or a lot)</label>
+            <textarea id="message" placeholder="I'm finding it hard after losing my dog..." aria-describedby="message-error"></textarea>
+            <p class="error" id="message-error" role="status" aria-live="polite"></p>
+          </div>
 
           <div class="form-footer">
             <p class="small-note">
-              This opens your email app — nothing is stored on this website.
+              This composes an email on your device — nothing is stored on this website.
               <button type="button" class="linkish" data-modal-open="privacy">Read privacy &amp; confidentiality</button>
             </p>
-            <button type="submit" class="btn">Open Email to Send</button>
+            <button type="submit" class="btn">Compose email message</button>
           </div>
 
           <div id="mailto-fallback" class="callout" style="display:none;margin:1.2rem 0 0;">
             <strong>Having trouble?</strong><br>
             If nothing opened, your device may not have an email app set up.<br>
-            Email us at <a href="mailto:hello@mls.im">hello@mls.im</a> and copy/paste from below:
+            Email us at <a href="mailto:hello@mls.im?subject=Support%20Enquiry">hello@mls.im</a> and copy/paste from below:
+
             <div style="margin-top:.8rem;">
               <label for="fallback-text" class="sr-only">Copyable message</label>
-              <textarea id="fallback-text" readonly></textarea>
+              <textarea id="fallback-text" readonly aria-readonly="true"></textarea>
+
+              <div class="fallback-actions">
+                <button type="button" class="btn btn-outline" id="copy-fallback">Copy message</button>
+                <p class="status" id="copy-status" aria-live="polite"></p>
+              </div>
             </div>
           </div>
         </form>
@@ -585,7 +711,7 @@
           <p><strong>Your privacy matters.</strong></p>
           <p><strong>Website:</strong> No personal information is stored. No cookies, no tracking, no analytics.</p>
           <p><strong>Support form:</strong> Opens your own email client. Nothing is sent to or kept on this site.</p>
-          <p><strong>Email &amp; phone:</strong> Treated as confidential; used only to provide support by MLS volunteers. No marketing, no selling of data.</p>
+          <p><strong>Email &amp; phone:</strong> Treated as confidential; used only to provide support. No marketing, no selling of data.</p>
           <p><strong>Safety:</strong> If you are in immediate danger call 999. Samaritans: <a href="tel:116123">116 123</a>.</p>
           <p class="field-hint" style="margin-top:1.4rem;">
             Note: Your email provider may keep copies in Sent items / on servers as part of normal delivery.
@@ -603,7 +729,7 @@
       </p>
 
       <p style="margin-top:1.4rem;">
-        <a href="mailto:hello@mls.im">hello@mls.im</a>  •  <a href="tel:0800000000">0800 000 000</a><br>
+        <a href="mailto:hello@mls.im?subject=Support%20Enquiry">hello@mls.im</a>  •  <a href="tel:0800000000">0800 000 000</a><br>
         <button type="button" class="linkish" data-modal-open="privacy">Privacy &amp; confidentiality</button><br>
         © <span id="copyright-year"></span>
       </p>
@@ -611,8 +737,8 @@
   </footer>
 
   <script>
-    // MLS single-file JS — Barry James (Feb 2026)
-    // Defensive by design: page should still render if JS fails.
+    // MLS single-file JS — Feb 2026
+    // Defensive by design: content renders even if JS fails.
 
     (function () {
       const $  = (sel, root=document) => root.querySelector(sel);
@@ -668,7 +794,7 @@
         if (first) first.focus();
       }
 
-      // Trigger buttons/links
+      // Triggers
       $$('[data-modal-open]').forEach(el => {
         el.addEventListener('click', (e) => {
           e.preventDefault();
@@ -713,37 +839,67 @@
         }
       });
 
-      // ── Support form logic (conditional contact + mailto + fallback) ──
+      // bfcache resilience (Safari/back-forward cache)
+      window.addEventListener('pageshow', () => closeAll());
+
+      // ── Support form logic ────────────────────────────────
       const form = $('#support-form');
       if (!form) return;
 
       const pref = $('#reply-pref');
-      const emailWrap = $('#email-wrap');
       const phoneWrap = $('#phone-wrap');
       const emailInput = $('#email');
       const phoneInput = $('#phone');
+      const messageInput = $('#message');
+
+      const emailField = $('#email-field');
+      const phoneField = $('#phone-field');
+      const messageField = $('#message-field');
+
+      const emailError = $('#email-error');
+      const phoneError = $('#phone-error');
+      const messageError = $('#message-error');
+
       const fallbackBox = $('#mailto-fallback');
       const fallbackTxt = $('#fallback-text');
+      const copyBtn = $('#copy-fallback');
+      const copyStatus = $('#copy-status');
+
+      function clearFieldError(fieldEl, errorEl, inputEl) {
+        if (fieldEl) fieldEl.classList.remove('has-error');
+        if (errorEl) errorEl.textContent = '';
+        if (inputEl) inputEl.removeAttribute('aria-invalid');
+      }
+
+      function setFieldError(fieldEl, errorEl, inputEl, msg) {
+        if (fieldEl) fieldEl.classList.add('has-error');
+        if (errorEl) errorEl.textContent = msg || 'Please check this field.';
+        if (inputEl) inputEl.setAttribute('aria-invalid', 'true');
+      }
+
+      function resetAllErrors() {
+        clearFieldError(emailField, emailError, emailInput);
+        clearFieldError(phoneField, phoneError, phoneInput);
+        clearFieldError(messageField, messageError, messageInput);
+      }
 
       function setContactUI() {
         if (!pref || !phoneWrap || !emailInput || !phoneInput) return;
-        const choice = pref.value;
 
+        const choice = pref.value;
         const showPhone = (choice === 'Phone call' || choice === 'Either');
         phoneWrap.style.display = showPhone ? '' : 'none';
 
-        // Requirements:
-        // Email -> require email
-        // Phone call -> require phone
-        // Either -> require at least one (custom)
         emailInput.required = (choice === 'Email');
         phoneInput.required = (choice === 'Phone call');
 
         emailInput.setCustomValidity('');
         phoneInput.setCustomValidity('');
+        clearFieldError(emailField, emailError, emailInput);
+        clearFieldError(phoneField, phoneError, phoneInput);
       }
 
-      if (pref) pref.addEventListener('change', setContactUI);
+      if (pref) pref.addEventListener('change', () => setContactUI());
       setContactUI();
 
       function buildMessage() {
@@ -752,7 +908,7 @@
         const phone = (phoneInput?.value || '').trim();
         const topic = $('#topic')?.value || 'Support';
         const choice = pref?.value || 'Email';
-        const message = ($('#message')?.value || '').trim();
+        const message = (messageInput?.value || '').trim();
 
         const subject = `MLS Support Request — ${topic}`;
 
@@ -767,25 +923,96 @@
         return { subject, body };
       }
 
-      function validateEither() {
-        if (!pref || pref.value !== 'Either') return true;
-        const hasEmail = !!(emailInput?.value || '').trim();
-        const hasPhone = !!(phoneInput?.value || '').trim();
-        if (hasEmail || hasPhone) {
-          emailInput?.setCustomValidity('');
-          phoneInput?.setCustomValidity('');
-          return true;
+      function validateForm() {
+        resetAllErrors();
+
+        const choice = pref?.value || 'Email';
+        const email = (emailInput?.value || '').trim();
+        const phone = (phoneInput?.value || '').trim();
+        const msg = (messageInput?.value || '').trim();
+
+        if (!msg) {
+          setFieldError(
+            messageField, messageError, messageInput,
+            'If you can, add one or two lines — even “I’m struggling” is enough.'
+          );
+          return { ok:false, focusEl: messageInput };
         }
-        emailInput?.setCustomValidity('Please provide an email address or a phone number.');
-        return false;
+
+        if (choice === 'Email') {
+          if (!email) {
+            setFieldError(emailField, emailError, emailInput, 'Please add an email address so we can reply.');
+            return { ok:false, focusEl: emailInput };
+          }
+          if (emailInput && !emailInput.checkValidity()) {
+            setFieldError(emailField, emailError, emailInput, 'That email address doesn’t look quite right.');
+            return { ok:false, focusEl: emailInput };
+          }
+        }
+
+        if (choice === 'Phone call') {
+          if (!phone) {
+            setFieldError(phoneField, phoneError, phoneInput, 'Please add a phone number so we can call you back.');
+            return { ok:false, focusEl: phoneInput };
+          }
+        }
+
+        if (choice === 'Either') {
+          if (!email && !phone) {
+            setFieldError(emailField, emailError, emailInput, 'Please provide an email address or a phone number.');
+            return { ok:false, focusEl: emailInput };
+          }
+          if (email && emailInput && !emailInput.checkValidity()) {
+            setFieldError(emailField, emailError, emailInput, 'That email address doesn’t look quite right.');
+            return { ok:false, focusEl: emailInput };
+          }
+        }
+
+        return { ok:true };
       }
 
       function showFallback(subject, body) {
         if (!fallbackBox || !fallbackTxt) return;
         fallbackTxt.value = `Subject: ${subject}\n\n${body}`;
         fallbackBox.style.display = '';
-        fallbackTxt.focus();
-        fallbackTxt.select?.();
+        if (copyStatus) copyStatus.textContent = '';
+      }
+
+      async function copyTextToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.setAttribute('readonly', '');
+        temp.style.position = 'absolute';
+        temp.style.left = '-9999px';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          const ok = document.execCommand('copy');
+          document.body.removeChild(temp);
+          return ok;
+        } catch {
+          document.body.removeChild(temp);
+          return false;
+        }
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          if (!fallbackTxt) return;
+          const ok = await copyTextToClipboard(fallbackTxt.value || '');
+          if (copyStatus) copyStatus.textContent = ok ? 'Copied.' : 'Could not copy automatically — you can select and copy manually.';
+        });
+      }
+
+      if (messageInput) {
+        messageInput.addEventListener('input', () => {
+          const msg = (messageInput.value || '').trim();
+          if (msg.length > 0) clearFieldError(messageField, messageError, messageInput);
+        });
       }
 
       form.addEventListener('submit', (e) => {
@@ -793,13 +1020,11 @@
 
         if (fallbackBox) fallbackBox.style.display = 'none';
         if (fallbackTxt) fallbackTxt.value = '';
+        if (copyStatus) copyStatus.textContent = '';
 
-        if (!validateEither()) {
-          form.reportValidity();
-          return;
-        }
-        if (!form.checkValidity()) {
-          form.reportValidity();
+        const result = validateForm();
+        if (!result.ok) {
+          result.focusEl?.focus?.();
           return;
         }
 
@@ -808,13 +1033,14 @@
 
         window.location.href = mailto;
 
-        // Cannot reliably detect success; show copy/paste fallback if user stays on page.
+        // Can't detect mail client success; show fallback if user remains in modal.
         window.setTimeout(() => {
           if (isOpen(modals.support)) showFallback(subject, body);
-        }, 700);
+        }, 900);
       });
     })();
   </script>
 </body>
 </html>
+```
 
